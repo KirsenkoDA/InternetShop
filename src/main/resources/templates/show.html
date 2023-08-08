@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о товаре</title>
+</head>
+<body>
+<b>Название товара:</b><p th:text="${product.name}">123</p><br>
+<b>Тип товара:</b><p th:text="${product.type}">123</p> <br>
+<b>Описание товара:</b><p th:text="${product.discription}">123</p> <br>
+<b>Цена товара:</b><p th:text="${product.price}">123</p> <br>
+<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+<form th:method="GET" th:action="@{/products/{id}/edit(id=${product.getId()})}">
+    <input type="submit" value="Изменить">
+</form>
+</body>
+</html>

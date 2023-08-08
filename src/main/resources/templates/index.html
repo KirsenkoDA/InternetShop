@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <div name = "header">
+            <H1>Internet Shop</H1>
+            <p align="right">
+                <button>Войти</button>
+                <button>Зарегистрироваться</button>
+            </p>
+        </div>
+            <div name = "searchFild">
+                <form action="/" method="get">
+                    <select name="selectByType">
+                        <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}"
+                                th:selected="${ProductGroup.isSelected(selectedParam)}">
+                        </option>
+                    </select>
+                        <input type = "submit" value="Найти">
+                        <a href="/products/new">Добавить новый товар</a>
+                </form>
+            </div>
+        <div name = "productList" th:each="Product : ${products}">
+            <a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getName()}">products</a>
+        </div>
+        <div name = "footer">
+        </div>
+    </body>
+</html>
