@@ -1,6 +1,9 @@
 package ru.kirsenko.InternetShop.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "product_table")
@@ -12,10 +15,14 @@ public class Product {
     @Column(name = "product_id")
     private Long id;
     @Column(name = "product_name")
+    @NotEmpty(message = "Имя не может быть пустым")
+    @Size(min = 2, max = 30, message = "Имя должно содержать от 2 до 30 символов")
     private String name;
     @Column(name = "product_discription")
+    @NotEmpty(message = "Описание не должно быть пустым")
     private String discription;
     @Column(name = "product_price")
+    @Min(value=0, message = "Значение цены может быть только положительным")
     private float price;
     @Column(name = "product_type")
     private Integer type;

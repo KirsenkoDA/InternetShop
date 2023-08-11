@@ -9,12 +9,15 @@
 <form th:action="@{/products/{id}(id=${product.getId()})}" th:method="PATCH" th:object="${product}">
     <label for="name">Наименование: </label>
     <input th:field="*{name}" type="text" id="name"/><br><br>
-    <label for="name">Описание товара: </label>
+    <label for="discription">Описание товара: </label>
     <input th:field="*{discription}" type="text" id="discription"/><br><br>
-    <label for="name">Цена товара: </label>
+    <label for="price">Цена товара: </label>
     <input th:field="*{price}" type="number" id="price"/><br><br>
-    <label for="name">Тип товара: </label>
-    <input th:field="*{type}" type="text" id="type"/><br><br>
+    <label for="type">Тип товара: </label>
+    <select th:field="*{type}" id="type">
+        <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}">
+        </option>
+    </select>
     <input type="submit" value="Изменить товар"/>
 </form>
 </body>

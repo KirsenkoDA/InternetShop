@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new Product</title>
+</head>
+<body>
+<h1>Добавить новый товар</h1>
+<form th:action="@{/products}" th:method="POST" th:object="${product}">
+    <label for="name">Наименование: </label>
+    <input th:field="*{name}" type="text" id="name"/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br><br>
+    <label for="name">Описание товара: </label>
+    <input th:field="*{discription}" type="text" id="discription"/>
+    <div style="color: red" th:if="${#fields.hasErrors('discription')}" th:errors="*{discription}">Discription error</div>
+    <br><br>
+    <label for="name">Цена товара: </label>
+    <input th:field="*{price}" type="number" id="price"/>
+    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</div>
+    <br><br>
+    <label for="type">Тип товара: </label>
+    <select th:field="*{type}" id="type">
+        <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}">
+        </option>
+    </select>
+    <input type="submit" value="Добавить товар"/>
+</form>
+</body>
+</html>
