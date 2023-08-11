@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Добавить новый товар</h1>
-<form th:action="@{/products}" th:method="POST" th:object="${product}">
+<form th:action="@{/products}" th:method="POST" th:object="${product}" enctype="multipart/form-data">
     <label for="name">Наименование: </label>
     <input th:field="*{name}" type="text" id="name"/>
     <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
@@ -24,6 +24,12 @@
         <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}">
         </option>
     </select>
+    <input  type="file" name="file1"/>
+    <br><br>
+    <input  type="file" name="file2"/>
+    <br><br>
+    <input  type="file" name="file3"/>
+    <br><br>
     <input type="submit" value="Добавить товар"/>
 </form>
 </body>

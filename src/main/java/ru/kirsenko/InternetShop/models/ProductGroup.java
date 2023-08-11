@@ -2,6 +2,9 @@ package ru.kirsenko.InternetShop.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "product_group")
 public class ProductGroup {
@@ -11,6 +14,9 @@ public class ProductGroup {
     private Long id;
     @Column(name = "product_group_name")
     private String name;
+    //Доабвление связи к модели Product
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "image")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
+//    private List<ProductGroup> productGroup = new ArrayList<>();
 
     public ProductGroup() {
     }

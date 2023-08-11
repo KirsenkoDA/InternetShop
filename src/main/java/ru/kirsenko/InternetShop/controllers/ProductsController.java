@@ -6,10 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.kirsenko.InternetShop.models.Product;
 import ru.kirsenko.InternetShop.models.ProductGroup;
 import ru.kirsenko.InternetShop.services.ProductGroupService;
 import ru.kirsenko.InternetShop.services.ProductService;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor//инжект бина модели
@@ -44,17 +47,23 @@ public class ProductsController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult)
+    public String create(@RequestParam(name="file1", required = false) MultipartFile file1
+            , @RequestParam(name="file2", required = false) MultipartFile file2
+            , @RequestParam(name="file3", required = false) MultipartFile file3
+            , @ModelAttribute("product") @Valid Product product
+            , BindingResult bindingResult) throws IOException
     {
         if(bindingResult.hasErrors())
             return "product/new.html";
-        productService.save(product);
+        productService.save(product, file1, file2, file3);
         return "redirect:/products";
     }
     @GetMapping("/{id}")
     public String show(@PathVariable Long id, Model model )
     {
-        model.addAttribute("product", productService.show(id));
+        Product product = productService.show(id);
+        model.addAttribute("product", product);
+        model.addAttribute("images", product.getImages());
         return "product/show.html";
     }
     @DeleteMapping ("/{id}")
@@ -71,13 +80,15 @@ public class ProductsController {
         return "product/edit.html";
     }
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @PathVariable("id") Long id)
+    public String update(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @PathVariable("id") Long id, @RequestParam("file1") MultipartFile file1
+            , @RequestParam("file2") MultipartFile file2
+            , @RequestParam("file3") MultipartFile file3) throws IOException
     {
         if(bindingResult.hasErrors())
         {
             return "product/edit.html";
         }
-        productService.save(product);
+        productService.save(product, file1, file2, file3);
         return "redirect:/products";
     }
 }

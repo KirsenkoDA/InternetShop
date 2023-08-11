@@ -6,6 +6,9 @@
 </head>
 <body>
 <b>Название товара:</b><p th:text="${product.name}">123</p><br>
+<img th:src="@{/images/{id}(id=${images.get(0).getId()})}" height="60px"/>
+<img src="@{/images/{id}(id=${images.get(1).getId()})}" height="60px"/>
+<img src="@{/images/{id}(id=${images.get(2).getId()})}" height="60px"/>
 <b>Тип товара:</b><p th:text="${product.type}">123</p> <br>
 <b>Описание товара:</b><p th:text="${product.discription}">123</p> <br>
 <b>Цена товара:</b><p th:text="${product.price}">123</p> <br>

@@ -5,6 +5,10 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "product_table")
 
@@ -26,6 +30,21 @@ public class Product {
     private float price;
     @Column(name = "product_type")
     private Integer type;
+    //Доабвление связи к модели image
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")//(mappedBy)Товар связанный с фотографией будет записан в foreign key  в таблице images
+    private List<Image> images = new ArrayList<>();
+    private Long previewImageId;
+    private LocalDateTime dateOfCreated;
+    @PrePersist//Метод инициализации бина
+    private void init()
+    {
+        dateOfCreated = LocalDateTime.now();
+    }
+    public void addImageToProduct(Image image)//Метод добавления foreign key в таблицы
+    {
+        image.setProduct(this);
+        images.add(image);
+    }
 
     public Product(Long id, String name, String discription, float price, Integer type) {
         this.id = id;
@@ -68,6 +87,22 @@ public class Product {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public Long getPreviewImageId() {
+        return previewImageId;
+    }
+
+    public void setPreviewImageId(Long previewImageId) {
+        this.previewImageId = previewImageId;
     }
 
     public boolean equals(final Object o) {
