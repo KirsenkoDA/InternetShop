@@ -6,18 +6,42 @@
 </head>
 <body>
 <h1>Изменить товар</h1>
-<form th:action="@{/products/{id}(id=${product.getId()})}" th:method="PATCH" th:object="${product}">
+<form th:action="@{/products/{id}(id=${product.getId()})}" th:method="PATCH" th:object="${product}" enctype="multipart/form-data">
     <label for="name">Наименование: </label>
     <input th:field="*{name}" type="text" id="name"/><br><br>
     <label for="discription">Описание товара: </label>
     <input th:field="*{discription}" type="text" id="discription"/><br><br>
     <label for="price">Цена товара: </label>
     <input th:field="*{price}" type="number" id="price"/><br><br>
-    <label for="type">Тип товара: </label>
-    <select th:field="*{type}" id="type">
+    <label for="productGroup">Группа товара: </label>
+    <select th:field="*{productGroup}" id="productGroup">
         <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}">
         </option>
     </select>
+    <table>
+        <tr>
+            <td>
+                <img th:src="@{/images/{id}(id=${product.getImages.get(0).getId()})}" height="60px"/>
+            </td>
+            <td>
+                <img th:src="@{/images/{id}(id=${product.getImages.get(1).getId()})}" height="60px"/>
+            </td>
+            <td>
+                <img th:src="@{/images/{id}(id=${product.getImages.get(2).getId()})}" height="60px"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input  type="file" name="file1"/>
+            </td>
+            <td>
+                <input  type="file" name="file2"/>
+            </td>
+            <td>
+                <input  type="file" name="file3"/>
+            </td>
+        </tr>
+    </table>
     <input type="submit" value="Изменить товар"/>
 </form>
 </body>

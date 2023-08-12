@@ -6,12 +6,15 @@
 </head>
 <body>
 <b>Название товара:</b><p th:text="${product.name}">123</p><br>
-<img th:src="@{/images/{id}(id=${images.get(0).getId()})}" height="60px"/>
-<img src="@{/images/{id}(id=${images.get(1).getId()})}" height="60px"/>
-<img src="@{/images/{id}(id=${images.get(2).getId()})}" height="60px"/>
-<b>Тип товара:</b><p th:text="${product.type}">123</p> <br>
+<b>Изображения товара</b>
+<br>
+<img th:if="${product.existImage(0)}" th:src="@{/images/{id}(id=${images.get(0).getId()})}" height="60px"/>
+<img th:if="${product.existImage(1)}" th:src="@{/images/{id}(id=${images.get(1).getId()})}" height="60px"/>
+<img th:if="${product.existImage(2)}" th:src="@{/images/{id}(id=${images.get(2).getId()})}" height="60px"/>
+<br>
 <b>Описание товара:</b><p th:text="${product.discription}">123</p> <br>
 <b>Цена товара:</b><p th:text="${product.price}">123</p> <br>
+<b>Группа товаров:</b><p th:text="${product.getProductGroup().getName()}">product group</p>
 <form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
     <input type="submit" value="Удалить">
 </form>

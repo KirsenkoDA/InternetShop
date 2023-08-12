@@ -19,8 +19,8 @@
     <input th:field="*{price}" type="number" id="price"/>
     <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price error</div>
     <br><br>
-    <label for="type">Тип товара: </label>
-    <select th:field="*{type}" id="type">
+    <label for="poductGroup">Группа товара: </label>
+    <select th:field="*{productGroup}" id="poductGroup">
         <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}">
         </option>
     </select>

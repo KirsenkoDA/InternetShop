@@ -28,8 +28,16 @@ public class Product {
     @Column(name = "product_price")
     @Min(value=0, message = "Значение цены может быть только положительным")
     private float price;
-    @Column(name = "product_type")
-    private Integer type;
+
+    public ProductGroup getProductGroup() {
+        return productGroup;
+    }
+
+    public void setProductGroup(ProductGroup productGroup) {
+        this.productGroup = productGroup;
+    }
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private ProductGroup productGroup;
     //Доабвление связи к модели image
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")//(mappedBy)Товар связанный с фотографией будет записан в foreign key  в таблице images
     private List<Image> images = new ArrayList<>();
@@ -45,20 +53,32 @@ public class Product {
         image.setProduct(this);
         images.add(image);
     }
-
-    public Product(Long id, String name, String discription, float price, Integer type) {
+    //Возвращает true если существует изображение с указанным индексом
+    public boolean existImage(int index)
+    {
+        return images.size() >= index + 1;
+    }
+    public void deleteImageFromProduct(Long imageId)
+    {
+        images.remove(imageId);
+    }
+    public void updateImageFromProduct(Image image, int index)
+    {
+        image.setProduct(this);
+        images.set(index, image);
+    }
+    public Product(Long id, String name, String discription, float price) {
         this.id = id;
         this.name = name;
         this.discription = discription;
         this.price = price;
-        this.type = type;
     }
 
     public Product() {
     }
 
-    public int getId() {
-        return Math.toIntExact(this.id);
+    public Long getId() {
+        return this.id;
     }
 
     public String getName() {
@@ -126,27 +146,19 @@ public class Product {
         return other instanceof Product;
     }
 
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        result = result * PRIME + this.getId();
-        final Object $name = this.getName();
-        result = result * PRIME + ($name == null ? 43 : $name.hashCode());
-        final Object $discription = this.getDiscription();
-        result = result * PRIME + ($discription == null ? 43 : $discription.hashCode());
-        result = result * PRIME + Float.floatToIntBits(this.getPrice());
-        return result;
-    }
+//    public Long hashCode() {
+//        final int PRIME = 59;
+//        Long result = 1;
+//        result = result * PRIME + this.getId();
+//        final Object $name = this.getName();
+//        result = result * PRIME + ($name == null ? 43 : $name.hashCode());
+//        final Object $discription = this.getDiscription();
+//        result = result * PRIME + ($discription == null ? 43 : $discription.hashCode());
+//        result = result * PRIME + Float.floatToIntBits(this.getPrice());
+//        return result;
+//    }
 
     public String toString() {
         return "Product(id=" + this.getId() + ", name=" + this.getName() + ", discription=" + this.getDiscription() + ", price=" + this.getPrice() + ")";
-    }
-
-    public Integer getType() {
-        return this.type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 }

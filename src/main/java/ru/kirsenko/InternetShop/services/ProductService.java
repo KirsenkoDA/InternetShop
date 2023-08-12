@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.kirsenko.InternetShop.models.Image;
 import ru.kirsenko.InternetShop.models.Product;
+import ru.kirsenko.InternetShop.models.ProductGroup;
 import ru.kirsenko.InternetShop.repositories.ProductRepository;
 
 import java.io.IOException;
@@ -18,10 +19,10 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<Product> list(String type) {
-        if(type != null)
+    public List<Product> list(ProductGroup productGroup) {
+        if(productGroup != null)
         {
-            return productRepository.findByType(Integer.parseInt(type));
+            return productRepository.findByProductGroup(productGroup);
         }
         return productRepository.findAll();
     }
@@ -33,23 +34,52 @@ public class ProductService {
         Image image1;
         Image image2;
         Image image3;
+        if(product.getId() != null)
+        {
+            List<Image> images = show(product.getId()).getImages();
+            product.setImages(images);
+        }
         if(file1.getSize() != 0)
         {
             image1 = toImageEntity(file1);
             image1.setPreviewImage(true);
-            product.addImageToProduct(image1);
+            if(product.getImages().size() > 0)
+            {
+                image1.setId(product.getImages().get(0).getId());
+                product.updateImageFromProduct(image1, 0);
+            }
+            else
+            {
+                product.addImageToProduct(image1);
+            }
         }
         if(file2.getSize() != 0)
         {
             image2 = toImageEntity(file2);
-            product.addImageToProduct(image2);
+            if(product.getImages().size() > 1)
+            {
+                image2.setId(product.getImages().get(1).getId());
+                product.updateImageFromProduct(image2, 1);
+            }
+            else
+            {
+                product.addImageToProduct(image2);
+            }
         }
         if(file3.getSize() != 0)
         {
             image3 = toImageEntity(file3);
-            product.addImageToProduct(image3);
+            if(product.getImages().size() > 2)
+            {
+                image3.setId(product.getImages().get(2).getId());
+                product.updateImageFromProduct(image3, 2);
+            }
+            else
+            {
+                product.addImageToProduct(image3);
+            }
         }
-        log.info("Saving new Product. Name: {}; Type: {}", product.getName(), product.getType());
+        log.info("Saving new Product. Name: {}; Type: {}", product.getName(), product.getProductGroup().getName());
         Product productFromDb = productRepository.save(product);
         productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
         productRepository.save(product);
@@ -65,6 +95,7 @@ public class ProductService {
     }
     public void delete(long id)
     {
+        log.info("delete{}", id);
         productRepository.deleteById(id);
     }
 }

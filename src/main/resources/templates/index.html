@@ -14,7 +14,7 @@
         </div>
             <div name = "searchFild">
                 <form action="/products" method="get">
-                    <select name="selectByType">
+                    <select name="selectByProductGroup">
                         <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}"
                                 th:selected="${ProductGroup.isSelected(selectedParam)}">
                         </option>

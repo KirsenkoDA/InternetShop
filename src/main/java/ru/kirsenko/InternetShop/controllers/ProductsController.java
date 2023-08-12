@@ -22,19 +22,21 @@ public class ProductsController {
     private final ProductGroupService productGroupService;
 
     @GetMapping
-    public String index(@RequestParam(name="selectByType", required = false) String type, Model model)
+    public String index(@RequestParam(name="selectByProductGroup", required = false) String productGroupId, Model model)
     {
         String selectedParam;
-        model.addAttribute("products", productService.list(type));
-        model.addAttribute("groups", productGroupService.groupList());
-        if(type == null)
+        ProductGroup productGroup = null;
+        if(productGroupId == null)
         {
             selectedParam = "1";
         }
         else
         {
-            selectedParam = type;
+            productGroup = productGroupService.getProductGroup(Long.parseLong(productGroupId));
+            selectedParam = productGroupId;
         }
+        model.addAttribute("products", productService.list(productGroup));
+        model.addAttribute("groups", productGroupService.groupList());
         model.addAttribute("selectedParam", selectedParam);
         return "index";
     }

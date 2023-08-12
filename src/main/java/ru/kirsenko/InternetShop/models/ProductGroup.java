@@ -14,9 +14,19 @@ public class ProductGroup {
     private Long id;
     @Column(name = "product_group_name")
     private String name;
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
+
     //Доабвление связи к модели Product
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "image")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
-//    private List<ProductGroup> productGroup = new ArrayList<>();
+    //Cascade.Merge - каскадное бновление
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "productGroup")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
+    private List<Product> product = new ArrayList<>();
 
     public ProductGroup() {
     }
