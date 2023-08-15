@@ -38,7 +38,7 @@ public class ProductsController {
         model.addAttribute("products", productService.list(productGroup));
         model.addAttribute("groups", productGroupService.groupList());
         model.addAttribute("selectedParam", selectedParam);
-        return "index";
+        return "product/index";
     }
     @GetMapping("/new")
     public String newProduct(Model model)
@@ -49,14 +49,16 @@ public class ProductsController {
     }
 
     @PostMapping()
-    public String create(@RequestParam(name="file1", required = false) MultipartFile file1
+    public String create(Model model, @RequestParam(name="file1", required = false) MultipartFile file1
             , @RequestParam(name="file2", required = false) MultipartFile file2
             , @RequestParam(name="file3", required = false) MultipartFile file3
             , @ModelAttribute("product") @Valid Product product
             , BindingResult bindingResult) throws IOException
     {
-        if(bindingResult.hasErrors())
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("groups", productGroupService.groupList());
             return "product/new.html";
+        }
         productService.save(product, file1, file2, file3);
         return "redirect:/products";
     }
