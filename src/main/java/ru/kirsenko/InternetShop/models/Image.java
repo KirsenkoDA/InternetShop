@@ -1,7 +1,8 @@
 package ru.kirsenko.InternetShop.models;
 
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="images")

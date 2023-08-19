@@ -30,6 +30,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/products">Справочник номенклатуры</a></li>
                             <li><a class="dropdown-item" href="#">Справочник номенклатурных групп</a></li>
+                            <li><a class="dropdown-item" href="/users">Справочник Пользователей</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
@@ -41,6 +42,9 @@
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
                 </form>
             </div>
         </div>

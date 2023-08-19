@@ -1,6 +1,6 @@
 package ru.kirsenko.InternetShop.controllers;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
