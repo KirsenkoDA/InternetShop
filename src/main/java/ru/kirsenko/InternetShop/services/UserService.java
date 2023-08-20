@@ -31,5 +31,16 @@ public class UserService {
     {
         return userRepository.findAll();
     }
-
+    public User show(Long id)
+    {
+        return userRepository.findById(id).orElse(null);
+    }
+    public void deleteById(Long id)
+    {
+        userRepository.deleteById(id);
+    }
+    public void save(User user)
+    {
+        userRepository.save(user);
+    }
 }
