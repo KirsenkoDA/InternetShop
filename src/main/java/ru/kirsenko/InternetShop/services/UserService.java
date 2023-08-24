@@ -39,6 +39,11 @@ public class UserService {
     {
         userRepository.deleteById(id);
     }
+    //Функция изменения пароля
+    public void changeUserPassword(User user, String password)
+    {
+        user.setPassword(passwordEncoder.encode(password));
+    }
     public void save(User user)
     {
         userRepository.save(user);

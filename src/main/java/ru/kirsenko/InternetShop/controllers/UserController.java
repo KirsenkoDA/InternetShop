@@ -34,7 +34,7 @@ public class UserController {
         return "user/login.html";
     }
     @PostMapping("/registration")
-    public String createUser(User user, Model model)
+    public String createUser(User user, Model model) throws IOException
     {
         if(!userService.createUser(user))
         {
@@ -80,17 +80,18 @@ public class UserController {
         return "user/edit.html";
     }
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult
+    public String update(@ModelAttribute("user") @Valid User user,
+                         BindingResult bindingResult) throws IOException
 //            , @PathVariable("id") Long id
 //            , @RequestParam("file1") MultipartFile file1
 //            , @RequestParam("file2") MultipartFile file2
 //            , @RequestParam("file3") MultipartFile file3
-    ) throws IOException
     {
-//        if(bindingResult.hasErrors())
-//        {
-//            return "product/edit.html";
-//        }
+        if(bindingResult.hasErrors())
+        {
+            return "user/edit.html";
+        }
+        userService.changeUserPassword(user, user.getPassword());
         userService.save(user);
         return "redirect:/users";
     }

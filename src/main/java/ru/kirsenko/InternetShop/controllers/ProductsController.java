@@ -84,12 +84,17 @@ public class ProductsController {
         return "product/edit.html";
     }
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @PathVariable("id") Long id, @RequestParam("file1") MultipartFile file1
-            , @RequestParam("file2") MultipartFile file2
-            , @RequestParam("file3") MultipartFile file3) throws IOException
+    public String update(@ModelAttribute("product") @Valid Product product
+            , BindingResult bindingResult
+            , @PathVariable("id") Long id
+            , @RequestParam(name="file1", required = false) MultipartFile file1
+            , @RequestParam(name="file2", required = false) MultipartFile file2
+            , @RequestParam(name="file3", required = false) MultipartFile file3, Model model) throws IOException
     {
+        product.setImages(productService.show(id).getImages());
         if(bindingResult.hasErrors())
         {
+            model.addAttribute("groups", productGroupService.groupList());
             return "product/edit.html";
         }
         productService.save(product, file1, file2, file3);

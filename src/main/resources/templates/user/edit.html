@@ -14,12 +14,15 @@
 
             <label class="form-label" for="name">Имя: </label>
             <input th:field="*{name}" class="form-control" type="text" name="name" id="name"/>
+            <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
 
             <label class="form-label" for="email">E-mail: </label>
             <input th:field="*{email}" class="form-control" type="text" name="email" id="email"/>
+            <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 
             <label class="form-label" for="phoneNumber">Номер телефона: </label>
             <input th:field="*{phoneNumber}" class="form-control" type="text" name="phoneNumber" id="phoneNumber"/>
+            <div style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
 
             <table>
                 <tr th:each="role: ${allRoles}">
@@ -30,6 +33,7 @@
 
             <label class="form-label" for="password">Пароль: </label>
             <input th:field="*{password}" class="form-control" type="password" name="password" id="password"/>
+            <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 
             <label class="form-label" for="active">Активен: </label>
             <input th:field="*{active}" th:checked="${user.active}" type="checkbox" name="active" id="active"/>
