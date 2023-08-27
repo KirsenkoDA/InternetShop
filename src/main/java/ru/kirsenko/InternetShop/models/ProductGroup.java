@@ -27,6 +27,14 @@ public class ProductGroup {
     //Cascade.Merge - каскадное бновление
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "productGroup")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
     private List<Product> product = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productGroupCharacteristics")
+////    @JoinColumn(name="product_group_id")//имя поля в таблице productGroupCharacteristic
+//    private List<ProductGroupCharacteristic> productGroupCharacteristics = new ArrayList<>();
+    @ManyToMany
+    @JoinTable (name="product_group_characteristic",
+        joinColumns=@JoinColumn (name="product_group_id"),
+        inverseJoinColumns=@JoinColumn(name="characteristic_id"))
+    private List<Characteristic> characteristics;
 
     public ProductGroup() {
     }
@@ -86,5 +94,13 @@ public class ProductGroup {
         else{
             return false;
         }
+    }
+
+    public List<Characteristic> getCharacteristics() {
+        return characteristics;
+    }
+
+    public void setCharacteristics(List<Characteristic> characteristics) {
+        this.characteristics = characteristics;
     }
 }

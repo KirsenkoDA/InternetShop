@@ -1,0 +1,28 @@
+package ru.kirsenko.InternetShop.models;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+@Entity
+@Data
+@Table(name="characteristic_table")
+public class Characteristic {
+    //Справочник характеристик
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    Long id;
+    @Column(name="name")
+    String name;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name="characteristic_id")//имя поля в таблице productGroupCharacteristic
+//    private List<ProductGroupCharacteristic> productGroupCharacteristic = new ArrayList<>();
+    @ManyToMany
+    @JoinTable (name="product_group_characteristic",
+            joinColumns=@JoinColumn (name="characteristic_id"),
+        inverseJoinColumns=@JoinColumn(name="product_group_id"))
+    private List<ProductGroup> productGroups;
+
+}
