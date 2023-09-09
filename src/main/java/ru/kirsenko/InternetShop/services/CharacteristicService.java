@@ -16,4 +16,16 @@ public class CharacteristicService {
     public List<Characteristic> characteristicList() {
         return characteristicRepository.findAll();
     }
+    public void delete(long id)
+    {
+        log.info("delete{}", id);
+        characteristicRepository.deleteById(id);
+    }
+    public Characteristic show(long id)
+    {
+        return characteristicRepository.findById(id).orElse(null);
+    }
+    public void save(Characteristic characteristic){
+        characteristicRepository.save(characteristic);
+    }
 }

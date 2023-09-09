@@ -25,7 +25,7 @@ public class ProductGroup {
 
     //Доабвление связи к модели Product
     //Cascade.Merge - каскадное бновление
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "productGroup")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "productGroup")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
     private List<Product> product = new ArrayList<>();
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productGroupCharacteristics")
 ////    @JoinColumn(name="product_group_id")//имя поля в таблице productGroupCharacteristic
