@@ -39,6 +39,8 @@ public class Product {
     }
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductGroup productGroup;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<ProductCharacteristic> productCharacteristics = new ArrayList<>();
     //Доабвление связи к модели image
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")//(mappedBy)Товар связанный с фотографией будет записан в foreign key  в таблице images
     private List<Image> images = new ArrayList<>();
@@ -76,6 +78,13 @@ public class Product {
     }
 
     public Product() {
+    }
+    public List<ProductCharacteristic> getProductCharacteristics() {
+        return productCharacteristics;
+    }
+
+    public void setProductCharacteristics(List<ProductCharacteristic> productCharacteristics) {
+        this.productCharacteristics = productCharacteristics;
     }
 
     public Long getId() {

@@ -16,7 +16,16 @@ public class Characteristic {
     Long id;
     @Column(name="name")
     String name;
-//    @OneToMany(cascade = CascadeType.ALL)
+
+    public List<ProductCharacteristic> getProductCharacteristics() {
+        return productCharacteristics;
+    }
+
+    public void setProductCharacteristics(List<ProductCharacteristic> productCharacteristics) {
+        this.productCharacteristics = productCharacteristics;
+    }
+
+    //    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name="characteristic_id")//имя поля в таблице productGroupCharacteristic
 //    private List<ProductGroupCharacteristic> productGroupCharacteristic = new ArrayList<>();
     @ManyToMany
@@ -24,5 +33,6 @@ public class Characteristic {
             joinColumns=@JoinColumn (name="characteristic_id"),
         inverseJoinColumns=@JoinColumn(name="product_group_id"))
     private List<ProductGroup> productGroups;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "characteristic")
+    private List<ProductCharacteristic> productCharacteristics = new ArrayList<>();
 }

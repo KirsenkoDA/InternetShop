@@ -36,6 +36,14 @@
                         </tr>
                     </table>
             </ul>
+            <div>
+                <table>
+                    <tr name = "characteristicList" th:each="productCharacteristic : ${product.getProductCharacteristics()}">
+                        <td><a th:text="${productCharacteristic.getCharacteristic().getName()}">products</a></td>
+                        <td><a th:text="${productCharacteristic.getProductCharacteristicValue()}">products</a></td>
+                    </tr>
+                </table>
+            </div>
             <div class="card-body">
                 <table>
                     <tr>
