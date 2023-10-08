@@ -1,11 +1,16 @@
 package ru.kirsenko.InternetShop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kirsenko.InternetShop.models.Characteristic;
 import ru.kirsenko.InternetShop.models.ProductGroup;
+import ru.kirsenko.InternetShop.repositories.CharacteristicRepository;
 import ru.kirsenko.InternetShop.services.CharacteristicService;
 import ru.kirsenko.InternetShop.services.ProductGroupService;
 
@@ -14,9 +19,12 @@ import ru.kirsenko.InternetShop.services.ProductGroupService;
 @RequestMapping("/characteristics")
 public class CharacteristicsController {
     private final CharacteristicService characteristicService;
+    private final CharacteristicRepository characteristicRepository;
     @GetMapping
-    public String index(Model model)
+    public String index(Model model, @PageableDefault(size=3)@SortDefault("id") Pageable pageable)
     {
+        Page page = characteristicRepository.findAll(pageable);
+        model.addAttribute("data", page);
         model.addAttribute("characteristics", characteristicService.characteristicList());
         return "characteristics/index";
     }
@@ -58,5 +66,4 @@ public class CharacteristicsController {
         characteristicService.save(characteristic);
         return "redirect:/characteristics";
     }
-
 }

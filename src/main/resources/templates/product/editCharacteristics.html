@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Характеристики</p>
+<br>
+<form th:method="POST" th:action="@{/products/{id}/editCharacteristics(id=${product.getId()})}">
+    <table>
+      <tr name = "characteristicList" th:each="productCharacteristic : ${product.getProductCharacteristics()}">
+        <td><p th:text="${productCharacteristic.getCharacteristic().getName()}">products</p></td>
+          <td><input name = "characteristicId" type="hidden" th:value="${productCharacteristic.getCharacteristic().getId()}"></td>
+        <td><input name = "characteristicValue" th:value="${productCharacteristic.getProductCharacteristicValue()}"></td>
+      </tr>
+    </table>
+    <input class="btn btn-success" type="submit" value="Принять">
+</form>
+</body>
+</html>

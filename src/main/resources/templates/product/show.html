@@ -37,9 +37,12 @@
                     </table>
             </ul>
             <div>
+                <p>Характеристики</p>
+                <br>
                 <table>
                     <tr name = "characteristicList" th:each="productCharacteristic : ${product.getProductCharacteristics()}">
-                        <td><a th:text="${productCharacteristic.getCharacteristic().getName()}">products</a></td>
+                        <td><a th:text="${productCharacteristic.getId()}" th:type="hidden">products</a></td>
+                        <td><a th:href="@{/productCharacteristics/{id}(id=${productCharacteristic.getId()})}" th:text="${productCharacteristic.getCharacteristic().getName()}">products</a></td>
                         <td><a th:text="${productCharacteristic.getProductCharacteristicValue()}">products</a></td>
                     </tr>
                 </table>

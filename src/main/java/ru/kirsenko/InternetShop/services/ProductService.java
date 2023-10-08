@@ -2,6 +2,9 @@ package ru.kirsenko.InternetShop.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.kirsenko.InternetShop.models.Image;
@@ -18,7 +21,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-
     public List<Product> list(ProductGroup productGroup) {
         if(productGroup != null)
         {
@@ -98,5 +100,9 @@ public class ProductService {
         log.info("delete{}", id);
         productRepository.deleteById(id);
     }
+    public Page<Product> findPaginated(int pageNo, int pageSize)
+    {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return productRepository.findAll(pageable);
+    }
 }
-

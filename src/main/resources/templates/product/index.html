@@ -18,29 +18,59 @@
                 <button>Зарегистрироваться</button>
             </p>
         </div>
-            <div name = "searchFild">
-                <form action="/products" method="get">
-                    <select name="selectByProductGroup">
-                        <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}"
-                                th:selected="${ProductGroup.isSelected(selectedParam)}">
-                        </option>
-                    </select>
-                        <input type = "submit" value="Найти">
-                        <a href="/products/new">Добавить новый товар</a>
-                </form>
-            </div>
+<!--            <div name = "searchFild">-->
+<!--                <form action="/products" method="get">-->
+<!--                    <select name="selectByProductGroup">-->
+<!--                        <option th:each="ProductGroup : ${groups}" th:value="${ProductGroup.getId()}" th:text="${ProductGroup.getName()}"-->
+<!--                                th:selected="${ProductGroup.isSelected(selectedParam)}">-->
+<!--                        </option>-->
+<!--                    </select>-->
+<!--                        <input type = "submit" value="Найти">-->
+<!--                        <a href="/products/new">Добавить новый товар</a>-->
+<!--                </form>-->
+<!--            </div>-->
         <table class="table table-striped">
             <tr>
                 <th>Код</th>
                 <th>Наименование</th>
                 <th>Цена</th>
             </tr>
-            <tr name = "productList" th:each="Product : ${products}">
+<!--            <tr name = "productList" th:each="Product : ${products}">-->
+<!--                <td><a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getId()}">products</a></td>-->
+<!--                <td><a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getName()}">products</a></td>-->
+<!--                <td><a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getPrice()}">products</a></td>-->
+<!--            </tr>-->
+            <tr name = "listProducts" th:each="Product : ${listProducts}">
                 <td><a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getId()}">products</a></td>
                 <td><a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getName()}">products</a></td>
                 <td><a th:href="@{/products/{id}(id=${Product.getId()})}" th:text="${Product.getPrice()}">products</a></td>
             </tr>
         </table>
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage > 1}" th:href="@{'/products/page/' + ${currentPage - 1}}"><<</a>
+                <span th:unless="${currentPage > 1}"><<</span>
+            </div>
+            <div class="col-sm-1">
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+              <a th:if="${currentPage != i}" th:href="@{'/products/page/' + ${i}}">[[${i}]]</a>
+              <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+            </span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/products/page/' + ${currentPage + 1}}">>></a>
+                <span th:unless="${currentPage < totalPages}">>></span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}" th:href="@{'/products/page/' + ${totalPages}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
         <div name = "footer">
         </div>
     </body>
