@@ -18,6 +18,7 @@
                 <h5 th:text="${productCharacteristic.getCharacteristic().getName()}">Card title</h5>
                 <h5 th:text="${productCharacteristic.getProductCharacteristicValue()}">Card title</h5>
             </div>
+            <button  class="btn btn-success"><a th:href="@{/productCharacteristics/{id}/edit(id=${productCharacteristic.getId()})}">Изменить</a></button>
 <!--            <div class="card-body">-->
 <!--                <table>-->
 <!--                    <tr>-->

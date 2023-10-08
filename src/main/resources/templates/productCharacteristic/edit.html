@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://tymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:method="PATCH" th:object="${productCharacteristic}" th:action="@{/productCharacteristics/{id}(id=${productCharacteristic.getId()})}">
+        <p th:text="${productCharacteristic.getProduct().getName()}"></p>
+        <p th:text="${productCharacteristic.getCharacteristic().getName()}"></p>
+        <input type="hidden" th:value="${productCharacteristic.getId()}" name="productCharacteristicId">
+        <input th:value="${productCharacteristic.getProductCharacteristicValue()}" name="productCharacteristicValue">
+        <input type="submit" value="Принять">
+    </form>
+</body>
+</html>

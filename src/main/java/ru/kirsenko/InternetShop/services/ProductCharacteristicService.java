@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.kirsenko.InternetShop.models.Characteristic;
 import ru.kirsenko.InternetShop.models.Product;
 import ru.kirsenko.InternetShop.models.ProductCharacteristic;
+import ru.kirsenko.InternetShop.models.ProductGroup;
 import ru.kirsenko.InternetShop.repositories.ProductCharacteristicRepository;
 
 import java.util.List;
@@ -41,4 +42,12 @@ public class ProductCharacteristicService {
             delete(productCharacteristicParm.getId());
         }
     }
+//    public void createCharacteristicsFromGroups(Product product)
+//    {
+//        ProductCharacteristic productCharacteristic = new ProductCharacteristic();
+//
+//        productCharacteristic.setProduct(product);
+//        product.setProductCharacteristics(product.getProductGroup().getCharacteristics());
+//        productCharacteristic.setCharacteristic(product.getProductGroup().getCharacteristics());
+//    }
 }

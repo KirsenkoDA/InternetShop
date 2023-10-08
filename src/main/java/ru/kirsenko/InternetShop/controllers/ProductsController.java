@@ -73,6 +73,13 @@ public class ProductsController {
 //        model.addAttribute("selectedParam", selectedParam);
 //        return "product/index";
 //    }
+    @GetMapping("/createCharacteristics/{id}")
+    public String createCharacteristics(Model model, @PathVariable("id") Long id)
+    {
+        Product product = productService.show(id);
+        productService.createProductCharacteristics(product);
+        return "redirect:/products/" + Long.toString(id);
+    }
     @GetMapping("/new")
     public String newProduct(Model model)
     {
@@ -133,22 +140,22 @@ public class ProductsController {
         productService.save(product, file1, file2, file3);
         return "redirect:/products";
     }
-    @GetMapping("/{id}/editCharacteristics")
-    public String editCharacteristics(@PathVariable("id") Long id, Model model)
-    {
-        Product product = productService.show(id);
-        model.addAttribute("product", product);
-        return "product/editCharacteristics";
-    }
-    @PostMapping("/{id}/editCharacteristics")
-    public String updateCharacteristics(@RequestParam(name="characteristicValue") String characteristicValue, @RequestParam(name="characteristicId") Long characteristicId, @PathVariable("id") Long id)
-    {
-        productCharacteristicService.deleteIfExist(productService.show(id), characteristicService.show(characteristicId));
-        ProductCharacteristic productCharacteristic = new ProductCharacteristic();
-        productCharacteristic.setProduct(productService.show(id));
-        productCharacteristic.setCharacteristic(characteristicService.show(characteristicId));
-        productCharacteristic.setProductCharacteristicValue(characteristicValue);
-        productCharacteristicService.save(productCharacteristic);
-        return "redirect:/products";
-    }
+//    @GetMapping("/{id}/editCharacteristics")
+//    public String editCharacteristics(@PathVariable("id") Long id, Model model)
+//    {
+//        Product product = productService.show(id);
+//        model.addAttribute("product", product);
+//        return "product/editCharacteristics";
+//    }
+//    @PostMapping("/{id}/editCharacteristics")
+//    public String updateCharacteristics(@RequestParam(name="characteristicValue") String characteristicValue, @RequestParam(name="characteristicId") Long characteristicId, @PathVariable("id") Long id)
+//    {
+//        productCharacteristicService.deleteIfExist(productService.show(id), characteristicService.show(characteristicId));
+//        ProductCharacteristic productCharacteristic = new ProductCharacteristic();
+//        productCharacteristic.setProduct(productService.show(id));
+//        productCharacteristic.setCharacteristic(characteristicService.show(characteristicId));
+//        productCharacteristic.setProductCharacteristicValue(characteristicValue);
+//        productCharacteristicService.save(productCharacteristic);
+//        return "redirect:/products";
+//    }
 }

@@ -12,7 +12,7 @@ public class ProductCharacteristic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Long id;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Characteristic characteristic;
 
     public Characteristic getCharacteristic() {
@@ -39,7 +39,7 @@ public class ProductCharacteristic {
         this.productCharacteristicValue = productCharacteristicValue;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
     @Column(name="product_characteristic_value")
     private String productCharacteristicValue;

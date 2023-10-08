@@ -60,6 +60,11 @@
                                 <input class="btn btn-success" type="submit" value="Изменить">
                             </form>
                         </td>
+                        <td>
+                            <form th:method="GET" th:action="@{/products/createCharacteristics/{id}(id=${product.getId()})}">
+                                <input class="btn btn-success" type="submit" value="Создать характеристики">
+                            </form>
+                        </td>
                     </tr>
                 </table>
             </div>

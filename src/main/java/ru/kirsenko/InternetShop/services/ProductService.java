@@ -5,14 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.kirsenko.InternetShop.models.Image;
-import ru.kirsenko.InternetShop.models.Product;
-import ru.kirsenko.InternetShop.models.ProductGroup;
+import ru.kirsenko.InternetShop.models.*;
 import ru.kirsenko.InternetShop.repositories.ProductRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+
     public List<Product> list(ProductGroup productGroup) {
         if(productGroup != null)
         {
@@ -104,5 +105,19 @@ public class ProductService {
     {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return productRepository.findAll(pageable);
+    }
+    public void createProductCharacteristics(Product product)
+    {
+        List<Characteristic> productGroupCharacteristicList = product.getProductGroup().getCharacteristics();
+        List<ProductCharacteristic> productCharacteristicList = new ArrayList<>();
+        for (Characteristic productGroupCharacteristic:productGroupCharacteristicList)
+        {
+            ProductCharacteristic productCharacteristic = new ProductCharacteristic();
+            productCharacteristic.setCharacteristic(productGroupCharacteristic);
+            productCharacteristic.setProduct(product);
+            productCharacteristicList.add(productCharacteristic);
+        }
+        product.setProductCharacteristics(productCharacteristicList);
+        productRepository.save(product);
     }
 }
