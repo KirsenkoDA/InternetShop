@@ -9,7 +9,7 @@ import ru.kirsenko.InternetShop.models.ProductGroup;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByProductGroup(ProductGroup productGroup);
     @Override
     Page<Product> findAll(Pageable pageable);
+    Page<Product> findByProductGroup(Pageable pageable, ProductGroup productGroup);
 }

@@ -87,6 +87,11 @@ public class ProductsController {
         model.addAttribute("groups", productGroupService.groupList());
         return "product/new.html";
     }
+    @GetMapping("/test")
+    public String test()
+    {
+        return "product/TEST1.html";
+    }
 
     @PostMapping()
     public String create(Model model, @RequestParam(name="file1", required = false) MultipartFile file1
@@ -106,6 +111,7 @@ public class ProductsController {
     public String show(@PathVariable Long id, Model model )
     {
         Product product = productService.show(id);
+
         model.addAttribute("product", product);
         model.addAttribute("images", product.getImages());
         return "product/show.html";

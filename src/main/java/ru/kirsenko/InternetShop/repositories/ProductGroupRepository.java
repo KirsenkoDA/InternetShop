@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductGroupRepository  extends JpaRepository<ProductGroup, Long> {
-    Optional<ProductGroup> findById(Long productGroupId);
-//    @Query("INSERT INTO product_group_characteristic (group_id, characteristic_id) VALUES (:groupId, :characteristicId)")
-//    List<ProductGroup> addNewCharacteristicToGroup(@Param("groupId") Long groupId, @Param("characteristicId") Long characteristicId);
+
 }
 

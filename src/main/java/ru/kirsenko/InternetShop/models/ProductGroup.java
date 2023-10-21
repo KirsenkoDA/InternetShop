@@ -1,5 +1,7 @@
 package ru.kirsenko.InternetShop.models;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 
 import java.util.ArrayList;
@@ -35,6 +37,17 @@ public class ProductGroup {
         joinColumns=@JoinColumn (name="product_group_id"),
         inverseJoinColumns=@JoinColumn(name="characteristic_id"))
     private List<Characteristic> characteristics;
+
+    public String getSvgIcon() {
+        return svgIcon;
+    }
+
+    public void setSvgIcon(String svgIcon) {
+        this.svgIcon = svgIcon;
+    }
+    @Column(name = "svgIcon", nullable = true, length = 1000)
+    @Length(max = 1000)
+    private String svgIcon;
 
     public ProductGroup() {
     }

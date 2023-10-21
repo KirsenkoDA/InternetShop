@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.kirsenko.InternetShop.models.Characteristic;
+import ru.kirsenko.InternetShop.models.Product;
 import ru.kirsenko.InternetShop.models.ProductGroup;
 import ru.kirsenko.InternetShop.repositories.ProductGroupRepository;
 
@@ -33,6 +34,10 @@ public class ProductGroupService {
     {
         log.info("delete{}", id);
         productGroupRepository.deleteById(id);
+    }
+    public ProductGroup findById(long id)
+    {
+        return productGroupRepository.findById(id).orElse(null);
     }
     public void deleteCharacteristic(long characteristicId, ProductGroup productGroup)
     {

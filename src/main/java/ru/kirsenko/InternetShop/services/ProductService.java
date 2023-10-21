@@ -22,13 +22,13 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public List<Product> list(ProductGroup productGroup) {
-        if(productGroup != null)
-        {
-            return productRepository.findByProductGroup(productGroup);
-        }
-        return productRepository.findAll();
-    }
+//    public List<Product> list(ProductGroup productGroup) {
+//        if(productGroup != null)
+//        {
+//            return productRepository.findByProductGroup(productGroup);
+//        }
+//        return productRepository.findAll();
+//    }
     public Product show(long id)
     {
         return productRepository.findById(id).orElse(null);
@@ -105,6 +105,11 @@ public class ProductService {
     {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return productRepository.findAll(pageable);
+    }
+    public Page<Product> findPaginatedByProductGroup(int pageNo, int pageSize, ProductGroup productGroup)
+    {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return productRepository.findByProductGroup(pageable,productGroup);
     }
     public void createProductCharacteristics(Product product)
     {
