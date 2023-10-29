@@ -21,6 +21,11 @@ import java.util.List;
 public class HomeController {
     private final ProductService productService;
     private final ProductGroupService productGroupService;
+    @GetMapping("/personalAccount")
+    public String personalAccount()
+    {
+        return "userMainPage/personalAccount.html";
+    }
     @GetMapping("/")
     public String index()
     {

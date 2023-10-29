@@ -8,9 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="user_table")
@@ -52,6 +50,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
     private LocalDateTime dateOfCreated;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
+    private List<SalesTable> salesTables = new ArrayList<>();
     @PrePersist
     private void init(){
         dateOfCreated=LocalDateTime.now();

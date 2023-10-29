@@ -45,8 +45,8 @@ public class ProductGroup {
     public void setSvgIcon(String svgIcon) {
         this.svgIcon = svgIcon;
     }
-    @Column(name = "svgIcon", nullable = true, length = 1000)
-    @Length(max = 1000)
+    @Column(name = "svgIcon", nullable = true, length = 10000)
+    @Length(max = 10000)
     private String svgIcon;
 
     public ProductGroup() {
