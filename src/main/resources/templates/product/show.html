@@ -13,7 +13,7 @@
 <div class="container text-center">
     <div class="col-md-6 .offset-md-3">
         <div class="card" style="width: 50rem;">
-            <img th:if="${product.existImage(0)}" th:src="@{/images/{id}(id=${images.get(0).getId()})}" class="card-img-top" alt="...">
+            <img th:if="${product.existImage(0)}" th:src="@{/imagesLob/{id}(id=${images.get(0).getId()})}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 th:text="${product.name}">Card title</h5>
                 <p th:text="${product.discription}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -25,13 +25,13 @@
                     <table>
                         <tr>
                             <td>
-                                <img th:if="${product.existImage(0)}" th:src="@{/images/{id}(id=${images.get(0).getId()})}" height="60px"/>
+                                <img th:if="${product.existImage(0)}" th:src="@{/imagesLob/{id}(id=${images.get(0).getId()})}" height="60px"/>
                             </td>
                             <td>
-                                <img th:if="${product.existImage(1)}" th:src="@{/images/{id}(id=${images.get(1).getId()})}" height="60px"/>
+                                <img th:if="${product.existImage(1)}" th:src="@{/imagesLob/{id}(id=${images.get(1).getId()})}" height="60px"/>
                             </td>
                             <td>
-                                <img th:if="${product.existImage(2)}" th:src="@{/images/{id}(id=${images.get(2).getId()})}" height="60px"/>
+                                <img th:if="${product.existImage(2)}" th:src="@{/imagesLob/{id}(id=${images.get(2).getId()})}" height="60px"/>
                             </td>
                         </tr>
                     </table>

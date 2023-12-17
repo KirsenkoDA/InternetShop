@@ -3,7 +3,11 @@ package ru.kirsenko.InternetShop.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Data
 @Table(name="sales_table")
@@ -13,11 +17,17 @@ public class SalesTable {
     @Column(name="id")
     private Long id;
     @Column(name="date_created")
-    private Date dateCreated;
+    private LocalDateTime dateCreated;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     @ManyToOne(fetch = FetchType.EAGER)
     private Status status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesTable")
+    private List<SalesLine> salesLines = new ArrayList<>();
+    @PrePersist
+    private void init(){
+        dateCreated= LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -27,11 +37,11 @@ public class SalesTable {
         this.id = id;
     }
 
-    public Date getDateCreated() {
+    public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
 

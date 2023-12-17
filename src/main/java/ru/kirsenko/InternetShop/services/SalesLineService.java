@@ -6,36 +6,32 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.kirsenko.InternetShop.models.ProductGroup;
+import ru.kirsenko.InternetShop.models.Characteristic;
+import ru.kirsenko.InternetShop.models.SalesLine;
 import ru.kirsenko.InternetShop.models.SalesTable;
-import ru.kirsenko.InternetShop.models.Status;
 import ru.kirsenko.InternetShop.models.User;
+import ru.kirsenko.InternetShop.repositories.SalesLineRepository;
 import ru.kirsenko.InternetShop.repositories.SalesTableRepository;
 import ru.kirsenko.InternetShop.repositories.UserRepository;
-
-import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class SalesTableService {
-    private final SalesTableRepository salesTableRepository;
+public class SalesLineService {
+    private final SalesLineRepository salesLineRepository;
     private final UserRepository userRepository;
-    public Page<SalesTable> findPaginated(int pageNo, int pageSize)
+    public Page<SalesLine> findPaginated(int pageNo, int pageSize)
     {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return salesTableRepository.findAll(pageable);
+        return salesLineRepository.findAll(pageable);
     }
-    public Page<SalesTable> findByUser(int pageNo, int pageSize, User user)
+    public Page<SalesLine> findBySalesTable(int pageNo, int pageSize, SalesTable salesTable)
     {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        return salesTableRepository.findByUser(pageable, user);
+        var res = salesLineRepository.findBySalesTable(pageable, salesTable);
+        return res;
     }
-    public SalesTable findByStatusAndUser(Status status, User user)
-    {
-        return salesTableRepository.findByStatusAndUser(status, user);
-    }
-    public void save(SalesTable salesTable){
-        salesTableRepository.save(salesTable);
+    public void save(SalesLine salesLine){
+        salesLineRepository.save(salesLine);
     }
 }

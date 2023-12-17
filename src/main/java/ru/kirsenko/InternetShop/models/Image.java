@@ -24,9 +24,9 @@ public class Image {
     private String contentType;
     @Column(name="isPreviewImage")
     private boolean isPreviewImage;
-    @Lob
-    @Column(name = "bytes", columnDefinition = "longblob")
-    private byte[] bytes;
+//    @Lob
+//    @Column(name = "bytes", columnDefinition = "longblob")
+//    private byte[] bytes;
     //Добавление отношения таблиц многие к одному, добавление foreignkey
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Product product;

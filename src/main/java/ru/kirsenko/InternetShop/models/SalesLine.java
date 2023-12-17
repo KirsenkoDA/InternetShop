@@ -1,7 +1,6 @@
 package ru.kirsenko.InternetShop.models;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
@@ -18,4 +17,5 @@ public class SalesLine {
     private Product product;
     private int quantity;
     private float price;
+
 }

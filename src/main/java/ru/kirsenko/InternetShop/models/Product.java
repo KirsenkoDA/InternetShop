@@ -1,5 +1,7 @@
 package ru.kirsenko.InternetShop.models;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -40,9 +42,11 @@ public class Product {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductGroup productGroup;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<SalesLine> salesLines = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<ProductCharacteristic> productCharacteristics = new ArrayList<>();
     //Доабвление связи к модели image
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")//(mappedBy)Товар связанный с фотографией будет записан в foreign key  в таблице images
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")//(mappedBy)Товар связанный с фотографией будет записан в foreign key  в таблице images
     private List<Image> images = new ArrayList<>();
     private Long previewImageId;
     private LocalDateTime dateOfCreated;
@@ -120,6 +124,9 @@ public class Product {
     }
 
     public List<Image> getImages() {
+        if (!Hibernate.isInitialized(images)) {
+            Hibernate.initialize(images);
+        }
         return images;
     }
 
