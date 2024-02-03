@@ -39,6 +39,8 @@ public class Product {
     public void setProductGroup(ProductGroup productGroup) {
         this.productGroup = productGroup;
     }
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    private Cart cart;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private ProductGroup productGroup;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")

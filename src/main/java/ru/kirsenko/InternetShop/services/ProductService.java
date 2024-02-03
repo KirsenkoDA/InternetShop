@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.kirsenko.InternetShop.models.*;
 import ru.kirsenko.InternetShop.repositories.ImageLobRepository;
 import ru.kirsenko.InternetShop.repositories.ImageRepository;
+import ru.kirsenko.InternetShop.repositories.ProductCharacteristicRepository;
 import ru.kirsenko.InternetShop.repositories.ProductRepository;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class ProductService {
     private final ImageLobService imageLobService;
     private final ImageRepository imageRepository;
     private final ImageLobRepository imageLobRepository;
+    private final ProductCharacteristicRepository productCharacteristicRepository;
 
 //    public List<Product> list(ProductGroup productGroup) {
 //        if(productGroup != null)
@@ -162,6 +164,10 @@ public class ProductService {
     public void delete(long id)
     {
         log.info("delete{}", id);
+        if(productCharacteristicRepository.findByProduct_Id(id) != null)
+        {
+            productCharacteristicRepository.deleteAllByProductId(id);
+        }
         productRepository.deleteById(id);
     }
     public Page<Product> findPaginated(int pageNo, int pageSize)

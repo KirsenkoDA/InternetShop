@@ -2,6 +2,9 @@ package ru.kirsenko.InternetShop.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kirsenko.InternetShop.models.Role;
@@ -26,6 +29,13 @@ public class UserService {
         userRepository.save(user);
         log.info("Saving new User with email: {}", email);
         return true;
+    }
+    public UserDetails getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            return (UserDetails) authentication.getPrincipal();
+        }
+        return null;
     }
     public List<User> list()
     {

@@ -49,9 +49,14 @@ public class User implements UserDetails {
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+
     private LocalDateTime dateOfCreated;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")//(mappedBy)Группа связанная с товаром будет записана в foreign key  в таблице images
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<SalesTable> salesTables = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
+    private Cart cart;
     @PrePersist
     private void init(){
         dateOfCreated=LocalDateTime.now();
