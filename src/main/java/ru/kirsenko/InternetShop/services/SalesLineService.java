@@ -14,6 +14,8 @@ import ru.kirsenko.InternetShop.repositories.SalesLineRepository;
 import ru.kirsenko.InternetShop.repositories.SalesTableRepository;
 import ru.kirsenko.InternetShop.repositories.UserRepository;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -30,6 +32,10 @@ public class SalesLineService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         var res = salesLineRepository.findBySalesTable(pageable, salesTable);
         return res;
+    }
+    public List<SalesLine> findBySalesTableList(SalesTable salesTable)
+    {
+        return salesLineRepository.findBySalesTableOrderByQuantity(salesTable);
     }
     public void save(SalesLine salesLine){
         salesLineRepository.save(salesLine);

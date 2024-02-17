@@ -26,6 +26,11 @@ public class SalesTableService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         return salesTableRepository.findAll(pageable);
     }
+    public Page<SalesTable> findPaginatedByUser(int pageNo, int pageSize, User user)
+    {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        return salesTableRepository.findAllByUser(pageable, user);
+    }
     public Page<SalesTable> findByUser(int pageNo, int pageSize, User user)
     {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
@@ -37,5 +42,10 @@ public class SalesTableService {
     }
     public void save(SalesTable salesTable){
         salesTableRepository.save(salesTable);
+    }
+    public SalesTable show(Long id)
+    {
+        SalesTable salesTable = salesTableRepository.findById(id).orElse(null);
+        return  salesTable;
     }
 }

@@ -1,6 +1,7 @@
 package ru.kirsenko.InternetShop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,22 +77,17 @@ public class UserController {
         allRoles.addAll(Arrays.asList(Role.values()));
         model.addAttribute("user", userService.show(id));
         model.addAttribute("allRoles", allRoles);
-//        model.addAttribute("groups", productGroupService.groupList());
         return "user/edit.html";
     }
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult) throws IOException
-//            , @PathVariable("id") Long id
-//            , @RequestParam("file1") MultipartFile file1
-//            , @RequestParam("file2") MultipartFile file2
-//            , @RequestParam("file3") MultipartFile file3
+    public String update(@ModelAttribute("user") User user) throws IOException
     {
-        if(bindingResult.hasErrors())
-        {
-            return "user/edit.html";
-        }
-        userService.changeUserPassword(user, user.getPassword());
+//        if(bindingResult.hasErrors())
+//        {
+//            return "user/edit.html";
+//        }
+//        userService.changeUserPassword(user, user.getPassword());
+        user.setPassword(userService.show(user.getId()).getPassword());
         userService.save(user);
         return "redirect:/users";
     }

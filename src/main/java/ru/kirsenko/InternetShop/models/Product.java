@@ -41,7 +41,7 @@ public class Product {
     }
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
     private Cart cart;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private ProductGroup productGroup;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<SalesLine> salesLines = new ArrayList<>();

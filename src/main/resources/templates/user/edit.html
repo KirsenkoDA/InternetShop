@@ -31,9 +31,9 @@
                 </tr>
             </table>
 
-            <label class="form-label" for="password">Пароль: </label>
-            <input th:field="*{password}" class="form-control" type="password" name="password" id="password"/>
-            <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+<!--            <label class="form-label" for="password">Пароль: </label>-->
+<!--            <input th:field="*{password}" class="form-control" type="password" name="password" id="password" />-->
+<!--            <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>-->
 
             <label class="form-label" for="active">Активен: </label>
             <input th:field="*{active}" th:checked="${user.active}" type="checkbox" name="active" id="active"/>

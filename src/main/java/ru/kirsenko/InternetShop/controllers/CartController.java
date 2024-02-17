@@ -6,14 +6,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kirsenko.InternetShop.models.Cart;
-import ru.kirsenko.InternetShop.models.Characteristic;
-import ru.kirsenko.InternetShop.models.Product;
-import ru.kirsenko.InternetShop.models.User;
-import ru.kirsenko.InternetShop.services.CartService;
-import ru.kirsenko.InternetShop.services.ProductService;
-import ru.kirsenko.InternetShop.services.UserService;
+import ru.kirsenko.InternetShop.models.*;
+import ru.kirsenko.InternetShop.services.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -23,6 +19,9 @@ public class CartController {
     private final CartService cartService;
     private final UserService userService;
     private final ProductService productService;
+    private final StatusService statusService;
+    private final SalesTableService salesTableService;
+    private final SalesLineService salesLineService;
     @GetMapping()
     public String show(@AuthenticationPrincipal User user, Model model)
     {
@@ -58,5 +57,32 @@ public class CartController {
             cartService.addToCart(newCart);
         }
         return "redirect:/carts";
+    }
+    @PostMapping("/makeOrder")
+    public String makeOrder(@AuthenticationPrincipal User user)
+    {
+        //Получаем списко товаров из карзины
+        List<Cart> carts = cartService.findByUser(user);
+        //Создаём новый заказ
+        SalesTable salesTable = new SalesTable();
+        //Новый заказ "не оформлен"
+        salesTable.setStatus(statusService.show(3));
+        salesTable.setUser(user);
+        salesTable.setDateCreated(LocalDateTime.now());
+        //Сохранение нового заказа
+        salesTableService.save(salesTable);
+        //salesTable.setId(salesTableService.findByStatusAndUser(statusService.show(3), user).getId());
+        //Создание строк заказа
+        for(Cart cart: carts)
+        {
+            SalesLine salesLine = new SalesLine();
+            salesLine.setSalesTable(salesTable);
+            salesLine.setProduct(cart.getProduct());
+            salesLine.setQuantity(cart.getQuantity());
+            salesLine.setPrice(cart.getPrice());
+            salesLineService.save(salesLine);
+            cartService.delete(cart.getId());
+        }
+        return "redirect:/salesTables/" + salesTable.getId();
     }
 }

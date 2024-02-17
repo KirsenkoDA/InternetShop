@@ -166,7 +166,7 @@ public class ProductService {
         log.info("delete{}", id);
         if(productCharacteristicRepository.findByProduct_Id(id) != null)
         {
-            productCharacteristicRepository.deleteAllByProductId(id);
+            productCharacteristicRepository.deleteAllByProduct(productRepository.getById(id));
         }
         productRepository.deleteById(id);
     }

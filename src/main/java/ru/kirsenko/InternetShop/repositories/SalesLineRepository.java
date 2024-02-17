@@ -7,8 +7,11 @@ import ru.kirsenko.InternetShop.models.SalesLine;
 import ru.kirsenko.InternetShop.models.SalesTable;
 import ru.kirsenko.InternetShop.models.User;
 
+import java.util.List;
+
 public interface SalesLineRepository  extends JpaRepository<SalesLine, Long> {
     @Override
     Page<SalesLine> findAll(Pageable pageable);
     Page<SalesLine> findBySalesTable(Pageable pageable, SalesTable salesTable);
+    List<SalesLine> findBySalesTableOrderByQuantity(SalesTable salesTable);
 }

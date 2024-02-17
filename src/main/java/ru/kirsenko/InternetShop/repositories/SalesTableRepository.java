@@ -11,6 +11,7 @@ import ru.kirsenko.InternetShop.models.User;
 public interface SalesTableRepository extends JpaRepository<SalesTable, Long> {
     @Override
     Page<SalesTable> findAll(Pageable pageable);
+    Page<SalesTable> findAllByUser(Pageable pageable, User user);
     Page<SalesTable> findByUser(Pageable pageable, User user);
     SalesTable findByStatusAndUser(Status status, User user);
 }

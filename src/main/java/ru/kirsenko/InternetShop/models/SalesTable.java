@@ -24,6 +24,16 @@ public class SalesTable {
     private Status status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "salesTable")
     private List<SalesLine> salesLines = new ArrayList<>();
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @PrePersist
     private void init(){
         dateCreated= LocalDateTime.now();
